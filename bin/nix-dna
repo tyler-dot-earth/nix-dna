@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Dev launcher. The packaged binary from `nix run` does not use this script.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if [[ -z "${ABOUT_NIX_GJS:-}" || -z "${GI_TYPELIB_PATH:-}" ]]; then
+  if ! command -v nix >/dev/null 2>&1; then
+    echo "nix-dna: nix is not on PATH, and GI_TYPELIB_PATH is unset" >&2
+    exit 1
+  fi
+  # shellcheck disable=SC1090
+  eval "$(nix eval --raw --impure --file "$ROOT/nix/dev-env.nix")"
+fi
+
+if [[ -z "${ABOUT_NIX_SQLITE:-}" ]]; then
+  if command -v sqlite3 >/dev/null 2>&1; then
+    export ABOUT_NIX_SQLITE="$(command -v sqlite3)"
+  fi
+fi
+
+exec "$ABOUT_NIX_GJS" -m "$ROOT/src/nix-dna/main.js" "$@"

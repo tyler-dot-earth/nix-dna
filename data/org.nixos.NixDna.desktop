@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Nix DNA
+Comment=Look around the Nix store, generations, flakes, and configuration on this machine
+Exec=nix-dna
+Icon=org.nixos.NixDna
+Terminal=false
+Type=Application
+Categories=System;Settings;
+StartupNotify=true
+Keywords=nix;nixos;store;generations;flakes;
