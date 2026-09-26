@@ -2,11 +2,13 @@
 
 GNOME/Adwaita interface to explore your Nix store, generations, flakes, and configuration.
 
-## Use
+## Run
 
 ```
-bin/nix-dna
+nix run github:tyler-dot-earth/nix-dna
 ```
+
+From a checkout of this repo, `nix run` does the same thing. `bin/nix-dna` runs the source in place, and fetches GJS and libadwaita from the nixpkgs pin on first use.
 
 The window has six sections.
 
@@ -18,7 +20,5 @@ The window has six sections.
 6. **Configuration.** `nix.conf`, the effective config, channels, and the GC roots that are not generations.
 
 It reads. It does not collect garbage, switch a generation, or evaluate a flake.
-
-`nix run` builds the wrapped app instead of using the launcher.
 
 Sizes are NAR bytes, the size Nix recorded. The disk figure is `df` on the filesystem that holds `/nix/store`, so it includes everything else on that disk.
